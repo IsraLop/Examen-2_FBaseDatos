@@ -10,10 +10,6 @@ public class SP {
         conexion = ConexionBD.getConexion();
     }
 
-//INSERT
-//UPDATE
-//SELECT
-
     public boolean EliminarUsuario(String id_usuario) {
         String sql = "{ CALL DELETE(?) }";
         try (CallableStatement stmt = conexion.prepareCall(sql)) {
