@@ -1,10 +1,8 @@
 package Vista;
 
-//Librerias
+// Librerías
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LoginGUI extends JFrame {
 
@@ -15,26 +13,31 @@ public class LoginGUI extends JFrame {
     public JButton btnIniciar, btnCancelar;
     public JPanel panel;
 
-    public LoginGUI() {
-        setTitle("Ventana Login");//Titulo del panel 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Cerrar ventana con X
+    public void VenLoguin() {
+        setTitle("Ventana Login"); // Título del panel
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar ventana con X
+        setSize(800, 600); // Tamaño de la ventana
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        setTitle("Ventana Login"); // Título del panel
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar ventana con X
 
         // Panel con imagen de fondo
         panel = new JPanel() {
             private Image fondo = new ImageIcon(getClass().getResource("Imagenes/Fondo3.jpg")).getImage();
+
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this); // Fondo del panel
             }
-        };//Panel con imagen de fondo
+        }; // Panel con imagen de fondo
 
         panel.setLayout(null); // Desactivar el diseño de layout
         add(panel);
-        eventos();
-    }//Fin de constructor
+        configurarComponentes();
+    } // Fin del constructor
 
-    public void eventos() {
+    private void configurarComponentes() {
         // Etiqueta y campo de texto para usuario
         Lbusuario = new JLabel("Ingrese el nombre usuario:");
         Lbusuario.setBounds(240, 130, 200, 35);
@@ -55,43 +58,25 @@ public class LoginGUI extends JFrame {
         pfContraseña.setBounds(240, 240, 300, 35);
         panel.add(pfContraseña);
 
-        // Boton para iniciar sesion
+        // Botón para iniciar sesión
         btnIniciar = crearBotonConEstilo("Ingresar", "Imagenes/ingresarbtn.png");
-        btnIniciar.setBounds(240, 300, 150, 35);//Posicion y tamaño
+        btnIniciar.setBounds(240, 300, 150, 35); // Posición y tamaño
         panel.add(btnIniciar);
 
-        //Accion para iniciar sesion
-        btnIniciar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CrudGUI ventana = new CrudGUI();
-                ventana.setBounds(0, 0, 800, 600);//Posicion y tamaño
-                ventana.setLocationRelativeTo(null);
-                ventana.setVisible(true);//Hacer visible la ventana
-                dispose();//Cierra la ventana actual
-            }
-        });
-
-        // Boton para cancelar
+        // Botón para cancelar
         btnCancelar = crearBotonConEstilo("Cancelar", "Imagenes/btnsalir.png");
         btnCancelar.setBounds(390, 300, 150, 35);
         panel.add(btnCancelar);
 
-        //Accion para cerrar 
-        btnCancelar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-    }//Fin de metodo eventos
+        setVisible(true);
+    } // Fin del método configurarComponentes
 
-    // Método para crear un boton con icono y texto
+    // Método para crear un botón con icono y texto
     private JButton crearBotonConEstilo(String texto, String rutaIcono) {
         JButton boton = new JButton(texto);
-        boton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource(rutaIcono)).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH)));//Busca el icono y se aplica redimension
+        boton.setIcon(new ImageIcon(new ImageIcon(getClass().getResource(rutaIcono)).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH))); // Busca el icono y se aplica redimensión
         boton.setHorizontalTextPosition(SwingConstants.RIGHT); // Texto a la derecha
-        boton.setCursor(new Cursor(Cursor.HAND_CURSOR));//Cursor de la mano
+        boton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cursor de la mano
         return boton;
-    }//Fin de metodo crearBotonEstilo
-}//Fin de la clase
+    } // Fin del método crearBotonEstilo
+} // Fin de la clase
