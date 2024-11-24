@@ -7,39 +7,42 @@ import java.awt.event.ActionListener;
 import Modelo.*;
 import Vista.*;
 
-// LO QUE ES EL MANEJO DE EVENTOS Y ACCIONES SE MANEJA EN LA CLASE CONTROLADOR
-
 public class ClaseCotrolador implements ActionListener {
+
     // Instancias de las clases que pertenecen a las carpetas modelo y vista
     LoginGUI venLog = new LoginGUI();
 
+    // Método que abre la ventana de Login
     public void llamadoVentanaLogin() {  
-    venLog.VenLoguin();;
-    venLog.btnIniciar.addActionListener(this);
+        venLog.VenLoguin();  // Llama a la ventana de login
+        venLog.btnIniciar.addActionListener(this); // Agrega el ActionListener al botón
     }
 
-     public void actionPerformed(ActionEvent e) {
-            ValidarUsuario val = new ValidarUsuario();
-            if (e.getSource() == venLog.btnIniciar) {
-                // Lógica para validar el inicio de sesión
-                val.setUsuario(venLog.tfUsuario.getText());
-                val.setContraseña(venLog.pfContraseña.getText());
-                valAuxi(val);
-            } 
-                     
+    // Maneja la acción del botón de iniciar sesión
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Verifica si el evento es generado por el botón de iniciar sesión
+        if (e.getSource() == venLog.btnIniciar) {
+            // Lógica para validar el inicio de sesión
+            String usuario = venLog.tfUsuario.getText();  // Obtiene el texto del campo de usuario
+            String contraseña = new String(venLog.pfContraseña.getPassword());  // Obtiene la contraseña del campo de contraseña
+
+            // Llama a la función valAuxi con los parámetros necesarios
+            valAuxi(usuario, contraseña);  
         }
+    }
 
-        public void valAuxi(ValidarUsuario in) {       
-            if (in.validarUsuario()) {
+    // Llama al método validarUsuario pasando los parámetros usuario y contraseña
+    public void valAuxi(String usuario, String contraseña) {
+        // Llama al método validarUsuario pasando los parámetros usuario y contraseña
+        if (ValidarUsuario.validarUsuario(usuario, contraseña)) {  // Aquí estamos llamando al método estático de ValidarUsuario
 
-     // ACÁ IRÍA EL LLAMADO AL METODO DE LA INTERFAZ QUE MUESTRA EL MENÚ PRINCIPAL
-
-
-        JOptionPane.showMessageDialog(null, "¡¡LA CONECCIÓN A LA BASE DE DATOS FUE EXITOSA!!", "Título", JOptionPane.INFORMATION_MESSAGE);
-
-                venLog.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "DATOS NO COICIDEN, INTENTE NUEVAMENTE", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-            }
+            // Si la validación es exitosa
+            JOptionPane.showMessageDialog(null, "¡LA CONEXIÓN A LA BASE DE DATOS FUE EXITOSA!", "Título", JOptionPane.INFORMATION_MESSAGE);
+            venLog.dispose();  // Cierra la ventana de login
+        } else {
+            // Si la validación falla
+            JOptionPane.showMessageDialog(null, "Los datos no coinciden, intente nuevamente", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    }
 }
