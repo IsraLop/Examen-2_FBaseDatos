@@ -1,7 +1,6 @@
 package Modelo;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,27 +9,22 @@ public class ValidarUsuario {
 
     private String Usuario, contraseña;
 
-    public boolean validarUsuario() {
-        String spCall = "{CALL sp_validarUsuario(?, ?)}"; // Llamada al procedimiento almacenado
+    public static boolean validarUsuario(String usuario, String contraseña) {
+        String spCall = "{CALL sp_validarUsuario(?, ?)}"; 
 
-        // Establecer la conexión a la base de datos y ejecutar el SP dentro del try-with-resources
-        try (Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/GitHub?verifyServerCertificate=false&useSSL=true", 
-                "root", 
-                "Isra1107.");
+        try (Connection con = ConexionBD.getConexion(); 
              CallableStatement cbtmt = con.prepareCall(spCall)) {
 
-            // Establecer los parámetros del procedimiento almacenado
-            cbtmt.setString(1, getUsuario());   // Nombre de usuario
-            cbtmt.setString(2, getContraseña()); // Contraseña
+            cbtmt.setString(1, usuario);
+            cbtmt.setString(2, contraseña);
 
-            // Ejecuta el SP y devuelve si el usuario es válido
             try (ResultSet rs = cbtmt.executeQuery()) {
-                return rs.next(); // Si hay un resultado, el usuario es válido
+                
+                return rs.next();
             }
 
         } catch (SQLException ex) {
-            // Manejo adecuado de excepciones, con un mensaje más claro
+            
             System.err.println("Error al validar el usuario: " + ex.getMessage());
             ex.printStackTrace();
             return false;
