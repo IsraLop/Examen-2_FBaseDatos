@@ -1,6 +1,9 @@
 package Vista;
 
 import javax.swing.*;
+
+import Modelo.SP;
+
 import java.awt.*;
 import java.io.File;
 
@@ -88,19 +91,35 @@ public class ActualizarVista extends JFrame {
 
         // Acción para el botón "Actualizar"
         btnActualizar.addActionListener(e -> {
-            if (txtPrimerNombre.getText().isEmpty() || txtPrimerApellido.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Los campos de primer nombre y primer apellido son obligatorios.",
+            String idUsuario = txtBuscar.getText();
+            String primerNombre = txtPrimerNombre.getText();
+            String segundoNombre = txtSegundoNombre.getText();
+            String primerApellido = txtPrimerApellido.getText();
+            String segundoApellido = txtSegundoApellido.getText();
+            String login = txtLogin.getText();
+            String clave = txtClave.getText();
+            String fechaCreacion = txtFechaCreacion.getText();
+        
+            // Validar campos obligatorios
+            if (idUsuario.isEmpty() || primerNombre.isEmpty() || primerApellido.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Los campos ID de usuario, primer nombre y primer apellido son obligatorios.",
                         "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                // Lógica de actualización
-                String mensaje = String.format(
-                        "Datos actualizados:\nPrimer Nombre: %s\nSegundo Nombre: %s\nPrimer Apellido: %s\nSegundo Apellido: %s\nLogin: %s\nClave: %s\nFecha de Creación: %s",
-                        txtPrimerNombre.getText(), txtSegundoNombre.getText(), txtPrimerApellido.getText(),
-                        txtSegundoApellido.getText(), txtLogin.getText(), txtClave.getText(), txtFechaCreacion.getText());
-                JOptionPane.showMessageDialog(this, mensaje, "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+        
+            // Validar formato de fecha (YYYY-MM-DD)
+            if (!fechaCreacion.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                JOptionPane.showMessageDialog(this, "El formato de la fecha debe ser YYYY-MM-DD.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
+            // Llamar al procedimiento de actualización
+            SP sp = new SP();
+            sp.ActualizarUsuario(idUsuario, primerNombre, segundoNombre, primerApellido, 
+                                 segundoApellido, login, clave, fechaCreacion);
         });
-
+        
         // Acción para el botón "Regresar"
         btnRegresar.addActionListener(e -> {
             this.dispose(); // Cierra esta ventana

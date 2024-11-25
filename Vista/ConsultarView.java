@@ -1,8 +1,14 @@
 package Vista;
 
 import javax.swing.*;
+
+import Modelo.SP;
+
 import java.awt.*;
 import java.io.File;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ConsultarView extends JFrame {
 
@@ -51,16 +57,38 @@ public class ConsultarView extends JFrame {
         JScrollPane scrollResultados = new JScrollPane(areaResultados);
 
         // Acción para el botón "Buscar"
+        // Acción para el botón "Buscar"
         btnBuscar.addActionListener(e -> {
             String id = txtBuscar.getText();
             if (id.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un ID para buscar.", "Error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                // Lógica para buscar datos
-                areaResultados.setText("Resultado de la búsqueda para el ID: " + id + "\n\nSimulación de datos...");
+                try {
+                    int ID = Integer.parseInt(id); // Convertir a entero
+        
+                    // Crear una instancia para realizar la consulta
+                    SP sp = new SP();
+        
+                    // Llamar al método ConsultarUsuario
+                    String resultado = sp.consultarUsuario(ID);
+        
+                    // Verificar si se encontró un resultado
+                    if (!resultado.isEmpty()) {
+                        areaResultados.setText(resultado); // Mostrar en el área de resultados
+                    } else {
+                        // Si no se encuentra el usuario
+                        JOptionPane.showMessageDialog(this, "No se encontró un usuario con el ID proporcionado.",
+                                "Resultado de la consulta", JOptionPane.INFORMATION_MESSAGE);
+                    }
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
+        
 
         // Crear botón regresar
         JButton btnRegresar = crearBoton("Regresar", "Regresa al menú principal.", "imagenes/salir.png",
