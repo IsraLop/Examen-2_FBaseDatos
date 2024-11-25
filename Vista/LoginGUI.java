@@ -60,13 +60,8 @@ public class LoginGUI extends JFrame {
 
         // Botón para iniciar sesión
         btnIniciar = crearBotonConEstilo("Ingresar", "Imagenes/ingresarbtn.png");
-        btnIniciar.setBounds(240, 300, 150, 35); // Posición y tamaño
+        btnIniciar.setBounds(240, 300, 300, 50); // Posición y tamaño
         panel.add(btnIniciar);
-
-        // Botón para cancelar
-        btnCancelar = crearBotonConEstilo("Cancelar", "Imagenes/btnsalir.png");
-        btnCancelar.setBounds(390, 300, 150, 35);
-        panel.add(btnCancelar);
 
         setVisible(true);
     } // Fin del método configurarComponentes
