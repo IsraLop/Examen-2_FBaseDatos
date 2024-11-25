@@ -14,7 +14,7 @@ public class LoginGUI extends JFrame {
     public JPanel panel;
 
     public void VenLoguin() {
-        setTitle("Ventana Login"); // Título del panel
+        setTitle("Ventana login"); // Título del panel
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar ventana con X
         setSize(800, 600); // Tamaño de la ventana
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
