@@ -69,7 +69,7 @@ public class ConsultarView extends JFrame {
                     SP sp = new SP();
         
                     // Llamar al método ConsultarUsuario
-                    String resultado = sp.consultarUsuario(ID);
+                    String resultado = sp.ConsultarUsuario(id);
         
                     // Verificar si se encontró un resultado
                     if (!resultado.isEmpty()) {
