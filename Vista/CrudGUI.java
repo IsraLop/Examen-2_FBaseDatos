@@ -18,8 +18,7 @@ public class CrudGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE); 
 
         // Ruta de la imagen de fondo
-        String rutaImagen = "Vista/Imagenes/fondo2.jpg"; 
-
+        String rutaImagen = "imagenes/fondo2.jpg";
 
         // Verifica que la imagen existe
         if (!new File(rutaImagen).exists()) {
