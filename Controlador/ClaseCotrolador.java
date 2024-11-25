@@ -40,7 +40,6 @@ public class ClaseCotrolador implements ActionListener {
             // Si la validación es exitosa
             JOptionPane.showMessageDialog(null, "¡LA CONEXIÓN A LA BASE DE DATOS FUE EXITOSA!", "Título", JOptionPane.INFORMATION_MESSAGE);
             venLog.dispose();  // Cierra la ventana de login
-            new CrudGUI();
         } else {
             // Si la validación falla
             JOptionPane.showMessageDialog(null, "Los datos no coinciden, intente nuevamente", "Advertencia", JOptionPane.WARNING_MESSAGE);

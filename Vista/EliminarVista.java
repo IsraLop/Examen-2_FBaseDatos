@@ -1,12 +1,8 @@
 package Vista;
 
 import javax.swing.*;
-
-import Modelo.SP;
-
 import java.awt.*;
 import java.io.File;
-import java.sql.SQLException;
 
 public class EliminarVista extends JFrame {
 
@@ -56,17 +52,9 @@ public class EliminarVista extends JFrame {
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID del usuario.", "Error",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                try {
-                    SP sp = new SP(); // Crear instancia de la clase SP
-                    sp.EliminarUsuario(idUsuario); // Llamar al método para eliminar el usuario
-
-                    // Después de la eliminación, limpiar el campo de texto
-                    txtIdUsuario.setText("");
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el usuario: " + ex.getMessage(), "Error", 
-                                                  JOptionPane.ERROR_MESSAGE);
-                }
+                // Lógica de eliminación (simulada)
+                JOptionPane.showMessageDialog(this, "Usuario con ID " + idUsuario + " eliminado exitosamente.",
+                        "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 

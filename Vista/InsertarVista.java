@@ -1,9 +1,6 @@
 package Vista;
 
 import javax.swing.*;
-
-import Modelo.SP;
-
 import java.awt.*;
 import java.io.File;
 
@@ -96,48 +93,14 @@ public class InsertarVista extends JFrame {
         // Crear botones estilizados
         JButton btnInsertar = crearBoton("Insertar", "Haga clic para insertar los datos.", "imagenes/insertar2.png",
                 new Color(60, 179, 113), Color.WHITE); // Verde con texto blanco
-       // Método para el botón Insertar
-
-     btnInsertar.addActionListener(e -> {
-    // Obtener los valores de los campos de texto
-    String idUsuario = txtID.getText();
-    String primerNombre = txtPrimerNombre.getText();
-    String segundoNombre = txtSegundoNombre.getText();
-    String primerApellido = txtPrimerApellido.getText();
-    String segundoApellido = txtSegundoApellido.getText();
-    String login = txtLogin.getText();
-    String clave = txtClave.getText();
-    String fechaCreacionStr = txtFechaCreacion.getText();
-
-    // Validación de los campos (si es necesario)
-    if (idUsuario.isEmpty() || primerNombre.isEmpty() || primerApellido.isEmpty() || login.isEmpty() || clave.isEmpty() || fechaCreacionStr.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-        return; // No continuar si hay campos vacíos
-    }
-
-    // Convertir la fecha de creación de String a java.sql.Date
-    java.sql.Date fechaCreacion = null;
-    try {
-        fechaCreacion = java.sql.Date.valueOf(fechaCreacionStr);
-    } catch (IllegalArgumentException ex) {
-        JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use AAAA-MM-DD.", "Error de fecha", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Llamar al método InsertarUsuario de la clase SP (Modelo)
-    SP sp = new SP();
-    sp.InsertarUsuario(idUsuario, primerNombre, segundoNombre, primerApellido, segundoApellido, login, clave, fechaCreacion);
-
-    // Limpiar los campos después de insertar
-    txtID.setText("");
-    txtPrimerNombre.setText("");
-    txtSegundoNombre.setText("");
-    txtPrimerApellido.setText("");
-    txtSegundoApellido.setText("");
-    txtLogin.setText("");
-    txtClave.setText("");
-    txtFechaCreacion.setText("");
-});
+        btnInsertar.addActionListener(e -> {
+            // Acción para insertar los datos
+            String mensaje = String.format(
+                    "Datos ingresados:\nID: %s\nPrimer Nombre: %s\nSegundo Nombre: %s\nPrimer Apellido: %s\nSegundo Apellido: %s\nLogin: %s\nClave: %s\nFecha de Creación: %s",
+                    txtID.getText(), txtPrimerNombre.getText(), txtSegundoNombre.getText(), txtPrimerApellido.getText(),
+                    txtSegundoApellido.getText(), txtLogin.getText(), txtClave.getText(), txtFechaCreacion.getText());
+            JOptionPane.showMessageDialog(this, mensaje, "Datos Insertados", JOptionPane.INFORMATION_MESSAGE);
+        });
 
         JButton btnRegresar = crearBoton("Regresar", "Regresa al menú principal.", "imagenes/salir.png",
                 new Color(30, 144, 255), Color.WHITE); // Azul con texto blanco
