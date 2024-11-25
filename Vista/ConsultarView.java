@@ -6,9 +6,7 @@ import Modelo.SP;
 
 import java.awt.*;
 import java.io.File;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class ConsultarView extends JFrame {
 
